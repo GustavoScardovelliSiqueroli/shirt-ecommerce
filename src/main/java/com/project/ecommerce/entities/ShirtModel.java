@@ -3,6 +3,7 @@ package com.project.ecommerce.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -17,8 +18,9 @@ public class ShirtModel implements Serializable {
     private String name;
     @Column(nullable = false)
     private String size;
-    @Column(nullable = false)
-    private String color;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "shirtColors", referencedColumnName = "id")
+    private Set<ShirtColorsModel> shirtColors;
     @Lob
     @Column(nullable = false, columnDefinition = "longtext")
     private String description;
@@ -47,13 +49,6 @@ public class ShirtModel implements Serializable {
         this.size = size;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
 
     public String getDescription() {
         return description;
