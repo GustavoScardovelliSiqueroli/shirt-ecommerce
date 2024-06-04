@@ -18,12 +18,20 @@ public class ShirtModel implements Serializable {
     private String name;
     @Column(nullable = false)
     private String size;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "shirtColors", referencedColumnName = "id")
-    private Set<ShirtColorsModel> shirtColors;
     @Lob
     @Column(nullable = false, columnDefinition = "longtext")
     private String description;
+
+    @OneToMany(mappedBy = "shirts")
+    Set<ShirtColorsModel> shirtColorsModels;
+
+    public Set<ShirtColorsModel> getShirtColorsModels() {
+        return shirtColorsModels;
+    }
+
+    public void setShirtColorsModels(Set<ShirtColorsModel> shirtColorsModels) {
+        this.shirtColorsModels = shirtColorsModels;
+    }
 
     public UUID getShirtId() {
         return shirtId;
